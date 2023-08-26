@@ -8,9 +8,6 @@ RUN openssl req \
     -subj "/C=KO/ST=Seoul/L=Gangnam/O=42seoul/CN=taeypark.42.fr" \
     -keyout /etc/nginx/private.key -out /etc/nginx/certificate.crt
 
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY my_files /etc/nginx/my_files
+COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 
-
-ENTRYPOINT ["dumb-init", "--"]
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["dumb-init", "--", "nginx", "-g", "daemon off;"]

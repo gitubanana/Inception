@@ -5,11 +5,12 @@ RUN apk update && \
     curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
     chmod +x /usr/local/bin/wp
 
+RUN curl -L -o adminer.php https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1.php
+
 RUN adduser -D taeypark && \
     chown -R taeypark:taeypark . && chmod -R 770 .
 
-COPY www.conf /etc/php81/php-fpm.d/www.conf
-COPY wordpress.sh /wordpress.sh
+COPY ./conf/www.conf /etc/php81/php-fpm.d/www.conf
+COPY ./tools/wordpress.sh /wordpress.sh
 
-ENTRYPOINT [ "dumb-init", "--" ]
-CMD ["/wordpress.sh"]
+ENTRYPOINT [ "dumb-init", "--", "/wordpress.sh"]
