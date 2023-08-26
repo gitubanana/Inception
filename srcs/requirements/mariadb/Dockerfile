@@ -3,7 +3,7 @@ RUN apk update && \
     apk add mariadb mariadb-client dumb-init
 
 RUN mariadb-install-db --datadir=/var/lib/mysql --auth-root-authentication-method=normal && \
-    mkdir -p /run/mysqld /var/lib/mysql && \
+    mkdir -p /run/mysqld && \
     chown -R mysql:mysql /run/mysqld /var/lib/mysql
 
 COPY ./conf/my.cnf /etc/my.cnf
