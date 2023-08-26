@@ -1,0 +1,53 @@
+services:
+  nginx:
+    image: nginx:inception
+    build: ./requirements/nginx/
+    container_name: nginx
+    networks:
+      - our_net
+    ports:
+      - "443:443"
+    restart: on-failure
+
+  mariadb:
+    image: mariadb:inception
+    depends_on:
+      - nginx
+    build: ./requirements/mariadb/
+    container_name: mariadb
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - our_net
+    restart: on-failure
+    env_file:
+      - .env
+
+  wordpress:
+    image: wordpress:inception
+    build: ./requirements/wordpress/
+    depends_on:
+      - nginx
+      - mariadb
+    container_name: wordpress
+    volumes:
+      - wordpress_data:/var/www/html
+    networks:
+      - our_net
+    restart: on-failure
+    env_file:
+      - .env
+
+volumes:
+  wordpress_data:
+    name: wordpress_data
+
+  mariadb_data:
+    name: mariadb_data
+  
+
+networks:
+  our_net:
+    name: inception_network
+
+# tty: true       # tty할당, docker run -it랑 같음.
