@@ -5,8 +5,7 @@ RUN apk update && \
     curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
     chmod +x /usr/local/bin/wp
 
-RUN adduser -D taeypark && \
-    chown -R taeypark:taeypark . && chmod -R 770 .
+RUN adduser -D taeypark
 
 COPY ./conf/www.conf /etc/php81/php-fpm.d/www.conf
 COPY ./tools/wordpress.sh /wordpress.sh
