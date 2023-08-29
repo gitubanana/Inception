@@ -41,13 +41,20 @@ services:
 volumes:
   wordpress_data:
     name: wordpress_data
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/taeypark/data/wordpress
+      o: bind
 
   mariadb_data:
     name: mariadb_data
-  
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/taeypark/data/mariadb
+      o: bind
 
 networks:
   our_net:
     name: inception_network
-
-# tty: true       # tty할당, docker run -it랑 같음.

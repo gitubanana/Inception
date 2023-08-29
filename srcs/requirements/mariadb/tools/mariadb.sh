@@ -1,7 +1,5 @@
 #!/bin/sh
 
-SQL_FILE=/var/lib/mysql/config.sql
-
 if [ ! -f $SQL_FILE ]; then
     mariadb-install-db --datadir=/var/lib/mysql
 
