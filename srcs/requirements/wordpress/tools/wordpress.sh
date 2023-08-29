@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ ! -f /var/www/html/wp-config.php ]; then
+if [ ! -f ./wp-config.php ]; then
   	wp core download
 	wp config create --dbhost=$MARIADB_HOST:$MARIADB_PORT --dbname=$MARIADB_DB \
 					 --dbuser=$MARIADB_USER --dbpass=$MARIADB_PW
