@@ -1,6 +1,8 @@
 #!/bin/sh
 
-if [ ! -f ./wp-config.php ]; then
+if [ -f ./wp-config.php ]; then
+	echo wordpress 이미 완성됨
+else
   	wp core download
 	wp config create --dbhost=$MARIADB_HOST:$MARIADB_PORT --dbname=$MARIADB_DB \
 					 --dbuser=$MARIADB_USER --dbpass=$MARIADB_PW
@@ -9,8 +11,6 @@ if [ ! -f ./wp-config.php ]; then
   	wp user create $WP_USER $WP_USER_EMAIL --user_pass=$WP_USER_PW
 	wp theme activate twentytwentytwo
     chown -R taeypark:taeypark . && chmod -R 770 .
-else
-	echo wordpress 이미 완성됨
 fi
 
 php-fpm81 --nodaemonize
