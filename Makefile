@@ -15,6 +15,12 @@ logs :
 fclean :
 	docker compose -f ./srcs/docker-compose.yml down
 
-rm_volume :
-	docker volume rm wordpress_data mariadb_data 2> /dev/null
-	sudo rm -rf $(VOLUME_DIR)
+rm_volume : fclean
+	@if [ -n "$(shell docker volume ls | grep wordpress_data)" ]; then \
+		docker volume rm wordpress_data mariadb_data; \
+		sudo rm -rf $(VOLUME_DIR); \
+	else \
+		echo "볼륨 없음"; \
+	fi
+
+.PHONY: all build logs fclean rm_volume
