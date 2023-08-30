@@ -1,6 +1,8 @@
 #!/bin/sh
 
-if [ ! -f $SQL_FILE ]; then
+if [ -f $SQL_FILE ]; then
+    echo mariadb 이미 완성됨
+else
     mariadb-install-db --datadir=/var/lib/mysql
 
     cat << EOF > $SQL_FILE
@@ -13,10 +15,9 @@ EOF
 
     mariadbd --bootstrap < $SQL_FILE
 
-    mkdir -p /var/run/mysqld
-    chown -R mysql:mysql /var/run/mysqld /var/lib/mysql
-else
-    echo mariadb 이미 완성됨
+    chown -R mysql:mysql /var/lib/mysql
 fi
 
+mkdir -p /var/run/mysqld
+chown -R mysql:mysql /var/run/mysqld
 mariadbd --user=mysql --datadir=/var/lib/mysql
