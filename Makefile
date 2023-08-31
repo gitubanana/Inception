@@ -1,6 +1,9 @@
 VOLUME_DIR=/home/taeypark/data
-WP_VOLUME=$(addprefix $(VOLUME_DIR), /wordpress)
-DB_VOLUME=$(addprefix $(VOLUME_DIR), /mariadb)
+WP_VOLUME=$(addsuffix /wordpress, $(VOLUME_DIR))
+DB_VOLUME=$(addsuffix /mariadb, $(VOLUME_DIR))
+IMAGE_NAME=nginx wordpress mariadb vsftpd
+TAG_NAME=:inception
+IMAGES=$(addsuffix $(TAG_NAME), $(IMAGE_NAME))
 
 all :
 	sudo mkdir -p $(WP_VOLUME) $(DB_VOLUME)
@@ -9,7 +12,7 @@ all :
 bonus :
 	make all
 
-build: 
+build: rm_image
 	docker compose -f ./srcs/docker-compose.yml build
 
 logs :
@@ -17,6 +20,13 @@ logs :
 
 fclean :
 	docker compose -f ./srcs/docker-compose.yml down
+
+rm_image : fclean
+	@if [ -n "$(shell docker images | grep wordpress)" ]; then \
+		docker rmi -f $(IMAGES); \
+	else \
+		echo "이미지 없음"; \
+	fi
 
 rm_volume : fclean
 	@if [ -n "$(shell docker volume ls | grep wordpress_data)" ]; then \
