@@ -38,6 +38,20 @@ services:
     env_file:
       - .env
 
+  vsftpd:
+    image: vsftpd:inception
+    build: ./requirements/bonus/vsftpd/
+    container_name: vsftpd
+    volumes:
+      - wordpress_data:/home/$FTP_USER
+    ports:
+      - "21:21"
+    networks:
+      - our_net
+    restart: on-failure
+    env_file:
+      - .env
+
 volumes:
   wordpress_data:
     name: wordpress_data
