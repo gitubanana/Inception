@@ -6,6 +6,9 @@ all :
 	sudo mkdir -p $(WP_VOLUME) $(DB_VOLUME)
 	docker compose -f ./srcs/docker-compose.yml up -d
 
+bonus :
+	make all
+
 build: 
 	docker compose -f ./srcs/docker-compose.yml build
 
