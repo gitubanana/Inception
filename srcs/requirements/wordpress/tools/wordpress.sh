@@ -3,6 +3,9 @@
 if [ -f ./wp-config.php ]; then
 	echo wordpress 이미 완성됨
 else
+	# bonus
+	curl -L -o adminer.php https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1-mysql.php
+
   	wp core download
 	wp config create --dbhost=$MARIADB_HOST:$MARIADB_PORT --dbname=$MARIADB_DB \
 					 --dbuser=$MARIADB_USER --dbpass=$MARIADB_PW

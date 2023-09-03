@@ -1,7 +1,7 @@
 FROM alpine:3.17
 WORKDIR /var/www/html
 RUN apk update && \
-    apk add curl dumb-init mysql-client php81-mysqli php81 php81-phar php81-fpm php81-iconv && \
+    apk add curl dumb-init mysql-client php81-mysqli php81 php81-phar php81-fpm php81-iconv php81-session && \
     curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
     chmod +x /usr/local/bin/wp
 
