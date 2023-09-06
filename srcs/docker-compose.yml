@@ -1,16 +1,14 @@
+# services
 services:
-  nginx:
-    image: nginx:inception
-    build: ./requirements/nginx/
-    depends_on:
-      - mariadb
-      - wordpress
-    container_name: nginx
+  redis-cache:
+    image: redis-cache:inception
+    build: ./requirements/bonus/redis-cache/
+    container_name: redis-cache
     networks:
       - our_net
-    ports:
-      - "443:443"
     restart: on-failure
+    env_file:
+      - .env
 
   mariadb:
     image: mariadb:inception
@@ -27,13 +25,51 @@ services:
   wordpress:
     image: wordpress:inception
     build: ./requirements/wordpress/
+    container_name: wordpress
     depends_on:
       - mariadb
-    container_name: wordpress
+      - redis-cache
     volumes:
       - wordpress_data:/var/www/html
     networks:
       - our_net
+    restart: on-failure
+    env_file:
+      - .env
+
+  adminer:
+    image: adminer:inception
+    build: ./requirements/bonus/adminer/
+    container_name: adminer
+    volumes:
+      - adminer_data:/var/www/html
+    networks:
+      - our_net
+    restart: on-failure
+    env_file:
+      - .env
+
+  nginx:
+    image: nginx:inception
+    build: ./requirements/nginx/
+    container_name: nginx
+    depends_on:
+      - adminer
+      - wordpress
+    networks:
+      - our_net
+    ports:
+      - "443:443"
+    restart: on-failure
+  
+  filebrowser:
+    image: filebrowser:inception
+    build: ./requirements/bonus/filebrowser/
+    container_name: filebrowser
+    networks:
+      - our_net
+    ports:
+      - $FILEBROWSER_PORT:$FILEBROWSER_PORT
     restart: on-failure
     env_file:
       - .env
@@ -52,6 +88,7 @@ services:
     env_file:
       - .env
 
+# volumes
 volumes:
   wordpress_data:
     name: wordpress_data
@@ -69,6 +106,15 @@ volumes:
       device: /home/taeypark/data/mariadb
       o: bind
 
+  adminer_data:
+    name: adminer_data
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/taeypark/data/adminer
+      o: bind
+
+# networks
 networks:
   our_net:
     name: inception_network
