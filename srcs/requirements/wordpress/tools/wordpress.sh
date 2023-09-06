@@ -3,9 +3,6 @@
 if [ -f ./wp-config.php ]; then
 	echo wordpress 이미 완성됨
 else
-	# bonus
-	curl -L -o adminer.php https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1-mysql.php
-
   	wp core download
 	wp config create --dbhost=$MARIADB_HOST:$MARIADB_PORT --dbname=$MARIADB_DB \
 					 --dbuser=$MARIADB_USER --dbpass=$MARIADB_PW
@@ -13,6 +10,14 @@ else
 					--admin_password=$WP_ADMIN_PW --admin_email=$WP_ADMIN_EMAIL --skip-email
   	wp user create $WP_USER $WP_USER_EMAIL --user_pass=$WP_USER_PW
 	wp theme activate twentytwentytwo
+
+	# Redis Cache
+	wp config set WP_REDIS_HOST $WP_REDIS_HOST
+	wp config set WP_REDIS_PORT $WP_REDIS_PORT
+	wp plugin install $REDIS_PLUGIN
+	wp plugin activate $REDIS_PLUGIN
+	wp redis enable
+
     chown -R taeypark:taeypark . && chmod -R 770 .
 fi
 
