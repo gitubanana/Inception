@@ -1,9 +1,11 @@
 FROM alpine:3.17
-RUN apk update && \
-    apk add mariadb mariadb-client dumb-init
+RUN apk update && apk add \
+    dumb-init \
+    mariadb \
+    mariadb-client \
+    && rm -rf /var/cache/apk/*
 
 COPY ./conf/my.cnf /etc/my.cnf
-COPY ./tools/mariadb.sh /mariadb.sh 
+COPY ./tools/mariadb.sh /usr/local/bin/mariadb.sh
 
-ENTRYPOINT [ "dumb-init", "--", "/mariadb.sh" ]
-
+ENTRYPOINT [ "dumb-init", "--", "/usr/local/bin/mariadb.sh" ]

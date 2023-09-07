@@ -1,6 +1,10 @@
 FROM alpine:3.17
-RUN apk update && \
-    apk add nginx dumb-init openssl
+RUN apk update && apk add \
+    dumb-init \
+    nginx \
+    openssl \
+    && rm -rf /var/cache/apk/*
+
 RUN openssl req \
     -x509 \
     -newkey rsa:2048 \
@@ -13,4 +17,4 @@ COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 # Static Web pages
 COPY ./tools/mywiki /mywiki
 
-ENTRYPOINT ["dumb-init", "--", "nginx", "-g", "daemon off;"]
+ENTRYPOINT [ "dumb-init", "--", "nginx", "-g", "daemon off;" ]
