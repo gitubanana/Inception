@@ -3,7 +3,7 @@ WORKDIR /var/www/html
 RUN apk update && apk add \
     curl \
     dumb-init \
-    mysql-client \
+    mariadb-client \
     php81 \
     php81-mysqli \
     php81-session \
