@@ -7,9 +7,8 @@ else
 
     cat << EOF > $SQL_FILE
     flush privileges;
-    create database if not exists $MARIADB_DB;
+    create database $MARIADB_DB;
     grant all privileges on $MARIADB_DB.* to '$MARIADB_USER'@'%' identified by '$MARIADB_PW';
-    grant all privileges on $MARIADB_DB.* to '$MARIADB_USER'@'localhost' identified by '$MARIADB_PW';
     flush privileges;
 EOF
 
