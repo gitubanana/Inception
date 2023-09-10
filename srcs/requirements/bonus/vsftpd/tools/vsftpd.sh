@@ -1,10 +1,8 @@
 #!/bin/sh
 
-cat << EOF > $PW_FILE
+adduser $FTP_USER << EOF
 $FTP_PW
 $FTP_PW
 EOF
-
-adduser $FTP_USER < $PW_FILE
 
 vsftpd /etc/vsftpd/vsftpd.conf
