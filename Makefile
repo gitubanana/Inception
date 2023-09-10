@@ -2,7 +2,7 @@ VOLUME_PATH=/home/taeypark/data
 VOLUME_DIR=/wordpress /mariadb /adminer
 VOLUME_PATHS=$(addprefix $(VOLUME_PATH), $(VOLUME_DIR))
 VOLUME_NAMES=wordpress_data mariadb_data adminer_data
-IMAGE_NAME=nginx wordpress mariadb vsftpd adminer
+IMAGE_NAME=nginx wordpress mariadb vsftpd adminer redis-cache filebrowser
 TAG_NAME=:inception
 IMAGES=$(addsuffix $(TAG_NAME), $(IMAGE_NAME))
 
