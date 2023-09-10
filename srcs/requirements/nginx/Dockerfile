@@ -15,6 +15,6 @@ RUN openssl req \
 COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 
 # Static Web pages
-COPY ./tools/mywiki /mywiki
+COPY ./tools/mywiki /var/www/html/mywiki
 
 ENTRYPOINT [ "dumb-init", "--", "nginx", "-g", "daemon off;" ]
