@@ -21,4 +21,5 @@ else
     chown -R taeypark:taeypark . && chmod -R 770 .
 fi
 
+touch $WP_HEALTHY_FILE
 php-fpm81 --nodaemonize

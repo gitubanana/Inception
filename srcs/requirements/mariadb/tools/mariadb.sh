@@ -19,4 +19,5 @@ fi
 
 mkdir -p /var/run/mysqld
 chown -R mysql:mysql /var/run/mysqld
+touch $MARIADB_HEALTHY_FILE
 mariadbd --user=mysql --datadir=/var/lib/mysql
