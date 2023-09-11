@@ -59,9 +59,9 @@ services:
     networks:
       - our_net
     ports:
-      - "443:443"
+      - $NGINX_PORT:$NGINX_PORT
     restart: on-failure
-  
+
   filebrowser:
     image: filebrowser:inception
     build: ./requirements/bonus/filebrowser/
@@ -81,7 +81,7 @@ services:
     volumes:
       - wordpress_data:/home/$FTP_USER
     ports:
-      - "21:21"
+      - $FTP_PORT:$FTP_PORT
     networks:
       - our_net
     restart: on-failure
