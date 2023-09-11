@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ -f ./wp-config.php ]; then
+if [ -f /var/www/html/wp-config.php ]; then
 	echo wordpress 이미 완성됨
 else
   	wp core download
