@@ -10,7 +10,8 @@ RUN openssl req \
     -newkey rsa:2048 \
     -nodes \
     -subj "/C=KO/ST=Seoul/L=Gangnam/O=42seoul/CN=taeypark.42.fr" \
-    -keyout /etc/nginx/private.key -out /etc/nginx/certificate.crt
+    -keyout /etc/nginx/private.key \
+    -out /etc/nginx/certificate.crt
 
 COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 
