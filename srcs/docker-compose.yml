@@ -90,6 +90,8 @@ services:
     image: filebrowser:inception
     build: ./requirements/bonus/filebrowser/
     container_name: filebrowser
+    volumes:
+      - filebrowser_data:$FILEBROWSER_DIR
     networks:
       - our_net
     ports:
@@ -136,6 +138,14 @@ volumes:
     driver_opts:
       type: none
       device: /home/taeypark/data/adminer
+      o: bind
+
+  filebrowser_data:
+    name: filebrowser_data
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/taeypark/data/filebrowser
       o: bind
 
 # networks

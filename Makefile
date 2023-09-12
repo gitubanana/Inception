@@ -1,13 +1,13 @@
 VOLUME_PATH=/home/taeypark/data
-VOLUME_DIR=/wordpress /mariadb /adminer
+VOLUME_DIR=/wordpress /mariadb /adminer /filebrowser
 VOLUME_PATHS=$(addprefix $(VOLUME_PATH), $(VOLUME_DIR))
-VOLUME_NAMES=wordpress_data mariadb_data adminer_data
+VOLUME_NAMES=wordpress_data mariadb_data adminer_data filebrowser_data
 IMAGE_NAME=nginx wordpress mariadb vsftpd adminer redis-cache filebrowser
 TAG_NAME=:inception
 IMAGES=$(addsuffix $(TAG_NAME), $(IMAGE_NAME))
 
 all :
-	sudo mkdir -p $(VOLUME_PATHS)
+	mkdir -p $(VOLUME_PATHS)
 	docker compose -f ./srcs/docker-compose.yml up -d
 
 bonus :
