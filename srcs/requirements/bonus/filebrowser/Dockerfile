@@ -9,4 +9,6 @@ RUN curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh |
 
 COPY ./tools/filebrowser.sh /usr/local/bin/filebrowser.sh
 
+RUN chmod +x /usr/local/bin/filebrowser.sh
+
 ENTRYPOINT [ "dumb-init", "--", "filebrowser.sh" ]

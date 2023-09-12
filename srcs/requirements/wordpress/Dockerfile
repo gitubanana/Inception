@@ -20,4 +20,6 @@ RUN adduser -D taeypark
 COPY ./conf/www.conf /etc/php81/php-fpm.d/www.conf
 COPY ./tools/wordpress.sh /usr/local/bin/wordpress.sh
 
+RUN chmod +x /usr/local/bin/wordpress.sh
+
 ENTRYPOINT [ "dumb-init", "--", "wordpress.sh"]

@@ -7,4 +7,6 @@ RUN apk update && apk add \
 COPY ./conf/redis.conf /etc/redis.conf
 COPY ./tools/redis-cache.sh /usr/local/bin/redis-cache.sh
 
+RUN chmod +x /usr/local/bin/redis-cache.sh
+
 ENTRYPOINT [ "dumb-init", "--", "redis-cache.sh" ]

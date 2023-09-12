@@ -11,4 +11,6 @@ RUN apk update && apk add \
 
 COPY ./tools/adminer.sh /usr/local/bin/adminer.sh
 
+RUN chmod +x /usr/local/bin/adminer.sh
+
 ENTRYPOINT [ "dumb-init", "--", "adminer.sh" ]

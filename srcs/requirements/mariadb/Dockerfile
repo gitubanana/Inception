@@ -7,4 +7,6 @@ RUN apk update && apk add \
 COPY ./conf/my.cnf /etc/my.cnf
 COPY ./tools/mariadb.sh /usr/local/bin/mariadb.sh
 
+RUN chmod +x /usr/local/bin/mariadb.sh
+
 ENTRYPOINT [ "dumb-init", "--", "mariadb.sh" ]
