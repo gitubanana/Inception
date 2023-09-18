@@ -7,7 +7,7 @@ TAG_NAME=:inception
 IMAGES=$(addsuffix $(TAG_NAME), $(IMAGE_NAME))
 
 all :
-	mkdir -p $(VOLUME_PATHS)
+	sudo mkdir -p $(VOLUME_PATHS)
 	docker compose -f ./srcs/docker-compose.yml up -d
 
 bonus :
