@@ -1,4 +1,4 @@
-VOLUME_PATH=/home/taeypark/data
+VOLUME_PATH=/workspaces/Inception/data
 VOLUME_DIR=/wordpress /mariadb /adminer /filebrowser
 VOLUME_PATHS=$(addprefix $(VOLUME_PATH), $(VOLUME_DIR))
 VOLUME_NAMES=wordpress_data mariadb_data adminer_data filebrowser_data
@@ -22,6 +22,9 @@ logs :
 fclean :
 	docker compose -f ./srcs/docker-compose.yml down
 
+re : fclean
+	make all
+
 rm_image : fclean
 	@if [ -n "$(shell docker images | grep wordpress)" ]; then \
 		docker rmi -f $(IMAGES); \
@@ -37,4 +40,4 @@ rm_volume : fclean
 		echo "볼륨 없음"; \
 	fi
 
-.PHONY: all bonus build logs fclean rm_image rm_volume
+.PHONY: all bonus build logs fclean re rm_image rm_volume

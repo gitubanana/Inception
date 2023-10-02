@@ -12,11 +12,11 @@ else
 	wp theme activate twentytwentytwo
 
 	# Redis Cache
-	wp config set WP_REDIS_HOST $WP_REDIS_HOST
-	wp config set WP_REDIS_PORT $WP_REDIS_PORT
-	wp plugin install $REDIS_PLUGIN
-	wp plugin activate $REDIS_PLUGIN
-	wp redis enable
+	# wp config set WP_REDIS_HOST $WP_REDIS_HOST
+	# wp config set WP_REDIS_PORT $WP_REDIS_PORT
+	# wp plugin install $REDIS_PLUGIN
+	# wp plugin activate $REDIS_PLUGIN
+	# wp redis enable
 
     chown -R taeypark:taeypark . && chmod -R 770 .
 fi

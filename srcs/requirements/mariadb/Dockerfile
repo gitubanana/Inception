@@ -9,4 +9,6 @@ COPY ./tools/mariadb.sh /usr/local/bin/mariadb.sh
 
 RUN chmod +x /usr/local/bin/mariadb.sh
 
+EXPOSE 3306
+
 ENTRYPOINT [ "dumb-init", "--", "mariadb.sh" ]

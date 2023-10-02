@@ -13,4 +13,6 @@ COPY ./tools/adminer.sh /usr/local/bin/adminer.sh
 
 RUN chmod +x /usr/local/bin/adminer.sh
 
+EXPOSE 8080
+
 ENTRYPOINT [ "dumb-init", "--", "adminer.sh" ]
