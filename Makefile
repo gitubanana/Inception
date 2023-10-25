@@ -1,4 +1,4 @@
-VOLUME_PATH=/home/taeypark/data
+VOLUME_PATH=${HOME}/data
 VOLUME_DIR=/wordpress /mariadb /adminer /filebrowser
 VOLUME_PATHS=$(addprefix $(VOLUME_PATH), $(VOLUME_DIR))
 VOLUME_NAMES=wordpress_data mariadb_data adminer_data filebrowser_data
@@ -7,6 +7,11 @@ TAG_NAME=:inception
 IMAGES=$(addsuffix $(TAG_NAME), $(IMAGE_NAME))
 
 all :
+	@if [ -n "$(shell nslookup taeypark.42.fr | grep NAME)"]; then \
+		sudo chmod o+w /etc/hosts; \
+		sudo echo "127.0.0.1 taeypark.42.fr" >> /etc/hosts; \
+		echo "Successfully made domain taeypark.42.fr as 127.0.0.1"; \
+	fi
 	sudo mkdir -p $(VOLUME_PATHS)
 	docker compose -f ./srcs/docker-compose.yml up -d
 
@@ -23,14 +28,14 @@ fclean :
 	docker compose -f ./srcs/docker-compose.yml down
 
 rm_image : fclean
-	@if [ -n "$(shell docker images | grep wordpress)" ]; then \
+	if [ -n "$(shell docker images | grep wordpress)"]; then \
 		docker rmi -f $(IMAGES); \
 	else \
 		echo "이미지 없음"; \
 	fi
 
 rm_volume : fclean
-	@if [ -n "$(shell docker volume ls | grep wordpress_data)" ]; then \
+	@if [ -n "$(shell docker volume ls | grep wordpress_data)"]; then \
 		docker volume rm $(VOLUME_NAMES); \
 		sudo rm -rf $(VOLUME_PATHS); \
 	else \
