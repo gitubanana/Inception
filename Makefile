@@ -37,4 +37,7 @@ rm_volume : fclean
 		echo "볼륨 없음"; \
 	fi
 
+re : fclean
+	make all
+
 .PHONY: all bonus build logs fclean rm_image rm_volume
