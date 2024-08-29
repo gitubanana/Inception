@@ -7,11 +7,6 @@ TAG_NAME=:inception
 IMAGES=$(addsuffix $(TAG_NAME), $(IMAGE_NAME))
 
 all :
-	@if [ -n "$(shell nslookup taeypark.42.fr | grep NAME)"]; then \
-		sudo chmod o+w /etc/hosts; \
-		sudo echo "127.0.0.1 taeypark.42.fr" >> /etc/hosts; \
-		echo "Successfully made domain taeypark.42.fr as 127.0.0.1"; \
-	fi
 	sudo mkdir -p $(VOLUME_PATHS)
 	docker compose -f ./srcs/docker-compose.yml up -d
 
