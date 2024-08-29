@@ -23,14 +23,14 @@ fclean :
 	docker compose -f ./srcs/docker-compose.yml down
 
 rm_image : fclean
-	if [ -n "$(shell docker images | grep wordpress)"]; then \
+	@if [ -n "$(shell docker images | grep wordpress)" ]; then \
 		docker rmi -f $(IMAGES); \
 	else \
 		echo "이미지 없음"; \
 	fi
 
 rm_volume : fclean
-	@if [ -n "$(shell docker volume ls | grep wordpress_data)"]; then \
+	@if [ -n "$(shell docker volume ls | grep wordpress_data)" ]; then \
 		docker volume rm $(VOLUME_NAMES); \
 		sudo rm -rf $(VOLUME_PATHS); \
 	else \
