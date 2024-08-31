@@ -13,7 +13,7 @@ all :
 bonus :
 	make all
 
-build: rm_image
+build: rmImage
 	docker compose -f ./srcs/docker-compose.yml build
 
 logs :
@@ -40,4 +40,4 @@ rmVolume : fclean
 re : fclean
 	make all
 
-.PHONY: all bonus build logs fclean rm_image rm_volume
+.PHONY: all bonus build logs fclean rmImage rmVolume
