@@ -3,7 +3,7 @@
 ## How to run?
 
 > [!IMPORTANT]
-> Needs Docker to run.<br>
+> Need Docker to run.<br>
 > Only tested on Ubuntu.<br>
 
 1. Clone this repository.
